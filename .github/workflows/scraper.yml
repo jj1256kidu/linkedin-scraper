@@ -5,6 +5,9 @@ on:
     - cron: '0 */6 * * *'  # Run every 6 hours
   workflow_dispatch:  # Allow manual runs
 
+permissions:
+  contents: write  # Required for uploading artifacts
+
 jobs:
   scrape:
     runs-on: ubuntu-latest
@@ -29,7 +32,7 @@ jobs:
       run: python scraper.py
       
     - name: Upload logs
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: scraper-logs
